@@ -18,7 +18,7 @@ const CommentBox = React.createClass({
     return (
       <div className='commentBox container'>
         <h1>Comments</h1>
-        <CommentForm />
+        <CommentForm formData={{}} />
         <CommentList comments={this.state.comments} />
       </div>
     );

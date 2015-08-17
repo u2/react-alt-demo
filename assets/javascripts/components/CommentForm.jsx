@@ -8,6 +8,10 @@ import NavItem from 'react-bootstrap/lib/NavItem';
 const CommentForm = React.createClass({
   displayName: 'CommentForm',
 
+  propTypes: {
+    formData: React.PropTypes.object.isRequired,
+  },
+
   getInitialState() {
     return {
       formMode: 0,
@@ -18,6 +22,22 @@ const CommentForm = React.createClass({
     this.setState({formMode: selectedKey});
   },
 
+  handleChange(){
+    let obj;
+    if(this.state.formMode < 2){
+      obj = {
+        author: this.refs.author.getValue(),
+        text: this.refs.text.getValue(),
+      };
+    } else {
+      obj = {
+        author: this.refs.inlineAuthor.getDOMNode().value,
+        text: this.refs.inlineText.getDOMNode().value,
+      };
+    }
+    this.props.formData = obj;
+  },
+
   formHorizontal() {
     return (
       <div>
@@ -25,10 +45,10 @@ const CommentForm = React.createClass({
         <form className='commentForm form-horizontal' >
           <Input type='text' label='Name' placeholder='Your Name' labelClassName='col-sm-2'
                  wrapperClassName='col-sm-10'
-                 ref='author' />
+                 ref='author' value={this.props.formData.author} onChange={this.handleChange} />
           <Input type='textarea' label='Text' placeholder='Say something...'
                  labelClassName='col-sm-2'
-                 wrapperClassName='col-sm-10' ref='text' />
+                 wrapperClassName='col-sm-10' ref='text' value={this.props.formData.text} onChange={this.handleChange} />
 
           <div className='form-group'>
             <div className='col-sm-offset-2 col-sm-10'><input type='submit'
@@ -47,8 +67,8 @@ const CommentForm = React.createClass({
       <div>
         <hr/>
         <form className='commentForm form'>
-          <Input type='text' label='Name' placeholder='Your Name' ref='author' />
-          <Input type='textarea' label='Text' placeholder='Say something...' ref='text' />
+          <Input type='text' label='Name' placeholder='Your Name' ref='author' value={this.props.formData.author} onChange={this.handleChange} />
+          <Input type='textarea' label='Text' placeholder='Say something...' ref='text' value={this.props.formData.text} onChange={this.handleChange} />
           <input type='submit' className='btn btn-primary' value='Post' />
         </form>
       </div>
@@ -64,11 +84,11 @@ const CommentForm = React.createClass({
             <Row>
               <Col xs={3}>
                 <input type='text' className='form-control' placeholder='Your Name'
-                       ref='inlineAuthor' />
+                       ref='inlineAuthor' value={this.props.formData.author} onChange={this.handleChange} />
               </Col>
               <Col xs={8}>
                 <input type='text' className='form-control' placeholder='Say something...'
-                       ref='inlineText' />
+                       ref='inlineText' value={this.props.formData.text} onChange={this.handleChange} />
               </Col>
               <Col xs={1}>
                 <input type='submit' className='btn btn-primary' value='Post' />
