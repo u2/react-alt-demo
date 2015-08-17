@@ -1,4 +1,5 @@
 import React from 'react';
+import CommentForm from './CommentForm';
 import CommentList from './CommentList';
 
 const CommentBox = React.createClass({
@@ -17,6 +18,7 @@ const CommentBox = React.createClass({
     return (
       <div className='commentBox container'>
         <h1>Comments</h1>
+        <CommentForm />
         <CommentList comments={this.state.comments} />
       </div>
     );
