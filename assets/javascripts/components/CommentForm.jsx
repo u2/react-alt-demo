@@ -4,19 +4,28 @@ import Row from 'react-bootstrap/lib/Row';
 import Col from 'react-bootstrap/lib/Col';
 import Nav from 'react-bootstrap/lib/Nav';
 import NavItem from 'react-bootstrap/lib/NavItem';
+import FormActions from '../actions/FormActions';
 
 const CommentForm = React.createClass({
   displayName: 'CommentForm',
 
   propTypes: {
-    formData: React.PropTypes.object.isRequired,
+    // formData: React.PropTypes.object.isRequired,
+    url: React.PropTypes.string.isRequired,
   },
 
   getInitialState() {
     return {
       formMode: 0,
+      comment: {},
     };
   },
+
+  // getDefaultProps() {
+  //   return {
+  //     formData: {},
+  //   };
+  // },
 
   handleSelect(selectedKey){
     this.setState({formMode: selectedKey});
@@ -35,20 +44,25 @@ const CommentForm = React.createClass({
         text: this.refs.inlineText.getDOMNode().value,
       };
     }
-    this.props.formData = obj;
+    this.setState({comment: obj});
+  },
+
+  handleSubmit(e){
+    e.preventDefault();
+    FormActions.submitComment(this.props.url, this.state.comment);
   },
 
   formHorizontal() {
     return (
       <div>
         <hr/>
-        <form className='commentForm form-horizontal' >
+        <form className='commentForm form-horizontal' onSubmit={this.handleSubmit}>
           <Input type='text' label='Name' placeholder='Your Name' labelClassName='col-sm-2'
                  wrapperClassName='col-sm-10'
-                 ref='author' value={this.props.formData.author} onChange={this.handleChange} />
+                 ref='author' value={this.state.comment.author} onChange={this.handleChange} />
           <Input type='textarea' label='Text' placeholder='Say something...'
                  labelClassName='col-sm-2'
-                 wrapperClassName='col-sm-10' ref='text' value={this.props.formData.text} onChange={this.handleChange} />
+                 wrapperClassName='col-sm-10' ref='text' value={this.state.comment.text} onChange={this.handleChange} />
 
           <div className='form-group'>
             <div className='col-sm-offset-2 col-sm-10'><input type='submit'
@@ -66,9 +80,9 @@ const CommentForm = React.createClass({
     return (
       <div>
         <hr/>
-        <form className='commentForm form'>
-          <Input type='text' label='Name' placeholder='Your Name' ref='author' value={this.props.formData.author} onChange={this.handleChange} />
-          <Input type='textarea' label='Text' placeholder='Say something...' ref='text' value={this.props.formData.text} onChange={this.handleChange} />
+        <form className='commentForm form' onSubmit={this.handleSubmit}>
+          <Input type='text' label='Name' placeholder='Your Name' ref='author' value={this.state.comment.author} onChange={this.handleChange} />
+          <Input type='textarea' label='Text' placeholder='Say something...' ref='text' value={this.state.comment.text} onChange={this.handleChange} />
           <input type='submit' className='btn btn-primary' value='Post' />
         </form>
       </div>
@@ -79,16 +93,16 @@ const CommentForm = React.createClass({
     return (
       <div>
         <hr/>
-        <form className='commentForm form' >
+        <form className='commentForm form' onSubmit={this.handleSubmit}>
           <Input label='Inline Form' wrapperClassName='wrapper'>
             <Row>
               <Col xs={3}>
                 <input type='text' className='form-control' placeholder='Your Name'
-                       ref='inlineAuthor' value={this.props.formData.author} onChange={this.handleChange} />
+                       ref='inlineAuthor' value={this.state.comment.author} onChange={this.handleChange} />
               </Col>
               <Col xs={8}>
                 <input type='text' className='form-control' placeholder='Say something...'
-                       ref='inlineText' value={this.props.formData.text} onChange={this.handleChange} />
+                       ref='inlineText' value={this.state.comment.text} onChange={this.handleChange} />
               </Col>
               <Col xs={1}>
                 <input type='submit' className='btn btn-primary' value='Post' />

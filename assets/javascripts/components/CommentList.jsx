@@ -1,11 +1,15 @@
 import React from 'react';
 import Comment from './Comment';
+import Immutable from 'immutable';
+import ImmutablePropTypes from 'react-immutable-proptypes';
 
 const CommentList = new React.createClass({
   displayName: 'CommentList',
 
   propTypes: {
-    comments: React.PropTypes.array
+    // comments: React.PropTypes.array
+    // comments: ImmutablePropTypes.list,
+    comments: React.PropTypes.instanceOf(Immutable.List),
   },
 
   render(){
