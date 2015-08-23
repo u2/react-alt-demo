@@ -1,16 +1,20 @@
 import React from 'react';
 import Comment from './Comment';
-import Immutable from 'immutable';
 import ImmutablePropTypes from 'react-immutable-proptypes';
+var PureRenderMixin = require('react/addons').addons.PureRenderMixin;
 
 const CommentList = new React.createClass({
   displayName: 'CommentList',
+  mixins: [PureRenderMixin],
 
   propTypes: {
     // comments: React.PropTypes.array
-    // comments: ImmutablePropTypes.list,
-    comments: React.PropTypes.instanceOf(Immutable.List),
+    comments: ImmutablePropTypes.list,
   },
+
+  // shouldComponentUpdate: function(nextProps, nextState) {
+  //   return this.props.comments !== nextProps.comments;
+  // },
 
   render(){
     let commentNodes = this.props.comments.reverse().map((comment, index) => {

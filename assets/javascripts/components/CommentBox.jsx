@@ -20,9 +20,9 @@ const CommentBox = React.createClass({
   getInitialState() {
     return {
               comments: Immutable.List.of(
-                          {author: 'Pete Hunt', text: 'Hey there!'},
-                          {author: 'Justin Gordon', text: 'Aloha from @railsonmaui'}
-                        )
+                  {author: 'Pete Hunt', text: 'Hey there!'},
+                  {author: 'Justin Gordon', text: 'Aloha from @railsonmaui'}
+                )
            };
   },
 
@@ -35,7 +35,6 @@ const CommentBox = React.createClass({
   },
 
   render(){
-    console.log(this.state.comments.constructor);
     return (
       <div className='commentBox container'>
         <h1>Comments</h1>
