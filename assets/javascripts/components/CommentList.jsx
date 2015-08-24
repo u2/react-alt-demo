@@ -8,18 +8,14 @@ const CommentList = new React.createClass({
   mixins: [PureRenderMixin],
 
   propTypes: {
-    // comments: React.PropTypes.array
     comments: ImmutablePropTypes.list,
   },
 
-  // shouldComponentUpdate: function(nextProps, nextState) {
-  //   return this.props.comments !== nextProps.comments;
-  // },
-
   render(){
+    console.log(`this.props.comments ${this.props.comments}`);
     let commentNodes = this.props.comments.reverse().map((comment, index) => {
       return (
-        <Comment author={comment.author} text={comment.text} key={index} />
+        <Comment author={comment.get('author')} text={comment.get('text')} key={index} />
       );
     });
     return(

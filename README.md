@@ -3,3 +3,4 @@
 - webpack
 - react-bootstrap
 - alt
+- immutable

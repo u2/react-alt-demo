@@ -10,7 +10,6 @@ const CommentForm = React.createClass({
   displayName: 'CommentForm',
 
   propTypes: {
-    // formData: React.PropTypes.object.isRequired,
     url: React.PropTypes.string.isRequired,
   },
 
@@ -20,12 +19,6 @@ const CommentForm = React.createClass({
       comment: {},
     };
   },
-
-  // getDefaultProps() {
-  //   return {
-  //     formData: {},
-  //   };
-  // },
 
   handleSelect(selectedKey){
     this.setState({formMode: selectedKey});

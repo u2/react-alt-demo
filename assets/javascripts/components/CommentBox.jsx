@@ -3,6 +3,7 @@ import CommentForm from './CommentForm';
 import CommentList from './CommentList';
 import CommentStore from '../stores/CommentStore';
 import Immutable from 'immutable';
+import CommentActions from '../actions/CommentActions';
 
 const CommentBox = React.createClass({
   displayName: "CommentBox",
@@ -18,16 +19,12 @@ const CommentBox = React.createClass({
   },
 
   getInitialState() {
-    return {
-              comments: Immutable.List.of(
-                  {author: 'Pete Hunt', text: 'Hey there!'},
-                  {author: 'Justin Gordon', text: 'Aloha from @railsonmaui'}
-                )
-           };
+    return this.getStoreState();
   },
 
   componentDidMount: function() {
     CommentStore.listen(this.onChange);
+    CommentActions.fetchComments(this.props.url);
   },
 
   onChange() {
